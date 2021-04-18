@@ -942,6 +942,12 @@ class Explorer( object ):
                 if self.scene.map[x][y].wall == maps.BASIC_WALL:
                     self.scene.map[x][y].wall = None
 
+     # explain end-of-combat first aid function to user
+    def end_combat_dialog(self):
+        self.alert("The party tends to their wounds.")
+        self.alert("Negative status effects removed, all fainted party members recovered.")
+        self.alert("Each party member is healed of their most recent wound.")              
+                
     def give_gold_and_xp( self, gold, xp, looting_ok=False ):
         if xp or gold:
             if xp and gold:
@@ -964,7 +970,7 @@ class Explorer( object ):
 
             # Stock the gold.
             self.camp.gold += gold
-
+        self.end_combat_dialog()
 
     def go( self ):
         self.no_quit = True
