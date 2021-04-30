@@ -21,6 +21,8 @@
 # 
 import characters
 import pygame
+
+import image
 import pygwrap
 import items
 import stats
@@ -80,6 +82,15 @@ class ChooseSpeciesRedrawer( object ):
             myimg = pygwrap.render_text(pygwrap.ITALICFONT, msg, myrect.width, justify = 0 )
             myrect = myimg.get_rect( topleft = ( myrect.x, y ) )
             screen.blit( myimg , myrect )
+
+        # Code to fix issue #1 by Michael Drolet
+        mybmp = pygame.Surface((54, 54))    # Create a surface
+        mybmp.fill((0, 0, 255))             # Fill surface
+        mybmp.set_colorkey((0, 0, 255), pygame.RLEACCEL)
+        myimg = image.Image( it.sprite_name , 54 , 54 ) # Create image of sprite
+        myimg.render(mybmp, frame=it.FIRST_IMAGE + it.skin_color + it.NUM_COLORS * min(stats.NEUTER, 1))    # Render image onto surface
+        screen.blit( mybmp , myrect )   # Display image on screen
+
     def __call__( self , screen ):
         if self.predraw:
             self.predraw( screen )
@@ -92,7 +103,7 @@ class ChooseSpeciesRedrawer( object ):
 
 def choose_species( screen, predraw ):
     """Return the species chosen by the player."""
-    redraw = ChooseSpeciesRedrawer( predraw=predraw )
+    redraw = ChooseSpeciesRedrawer(menu=charsheet.MenuRedrawer, predraw=predraw )
     rpm = charsheet.RightMenu( screen , predraw = redraw )
     redraw.menu = rpm
     for s in characters.PC_SPECIES:
@@ -121,6 +132,7 @@ class ChooseLevelRedrawer( object ):
         screen.blit( myimg , myrect )
         y += myrect.height
         msg = it.desc
+
         if msg:
             myimg = pygwrap.render_text(pygwrap.SMALLFONT, msg, myrect.width, justify = -1 )
             myrect = myimg.get_rect( topleft = ( myrect.x, y ) )
@@ -131,6 +143,7 @@ class ChooseLevelRedrawer( object ):
             myimg = pygwrap.render_text(pygwrap.ITALICFONT, msg, myrect.width, justify = 0 )
             myrect = myimg.get_rect( topleft = ( myrect.x, y ) )
             screen.blit( myimg , myrect )
+
     def __call__( self , screen ):
         if self.predraw:
             self.predraw( screen )
