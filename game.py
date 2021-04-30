@@ -39,105 +39,115 @@ import os
 VERSION_ID = "0.4.0 Alpha"
 
 
-class PosterRedraw( object ):
-    def __init__( self, screen ):
-        self.image = pygame.image.load( random.choice( pygwrap.POSTERS ) ).convert()
-        self.image_dest = self.image.get_rect( center=(screen.get_width()//2,screen.get_height()//2) )
-    def __call__( self, screen ):
-        screen.fill( (0,0,0) )
-        screen.blit(self.image , self.image_dest )
+class PosterRedraw(object):
+    def __init__(self, screen):
+        self.image = pygame.image.load(random.choice(pygwrap.POSTERS)).convert()
+        self.image_dest = self.image.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
 
-class TitleScreenRedraw( object ):
-    def __init__( self, screen ):
+    def __call__(self, screen):
+        screen.fill((0, 0, 0))
+        screen.blit(self.image, self.image_dest)
+
+
+class TitleScreenRedraw(object):
+    def __init__(self, screen):
         self.screen_center_x = screen.get_width() // 2
         self.screen_center_y = screen.get_height() // 2
-        self.logo = image.Image( "sys_logo.png" )
-        self.logo_dest = self.logo.bitmap.get_rect( midbottom=(self.screen_center_x,self.screen_center_y-25) )
-        self.version = pygwrap.ITALICFONT.render( VERSION_ID, True, pygwrap.TEXT_COLOR )
-        self.version_dest = self.version.get_rect( midtop = self.logo_dest.midbottom )
+        self.logo = image.Image("sys_logo.png")
+        self.logo_dest = self.logo.bitmap.get_rect(midbottom=(self.screen_center_x, self.screen_center_y - 25))
+        self.version = pygwrap.ITALICFONT.render(VERSION_ID, True, pygwrap.TEXT_COLOR)
+        self.version_dest = self.version.get_rect(midtop=self.logo_dest.midbottom)
         self.get_bg_image()
 
-    def get_bg_image( self ):
-        self.image = pygame.image.load( random.choice( pygwrap.POSTERS ) ).convert()
-        self.image_dest = self.image.get_rect( center=(self.screen_center_x,self.screen_center_y) )
+    def get_bg_image(self):
+        self.image = pygame.image.load(random.choice(pygwrap.POSTERS)).convert()
+        self.image_dest = self.image.get_rect(center=(self.screen_center_x, self.screen_center_y))
 
-    def __call__( self, screen ):
-        screen.fill( (0,0,0) )
-        screen.blit(self.image , self.image_dest )
-        screen.blit(self.logo.bitmap , self.logo_dest )
-        screen.blit(self.version , self.version_dest )
+    def __call__(self, screen):
+        screen.fill((0, 0, 0))
+        screen.blit(self.image, self.image_dest)
+        screen.blit(self.logo.bitmap, self.logo_dest)
+        screen.blit(self.version, self.version_dest)
 
-def choose_characters( screen ):
-    rpm = rpgmenu.Menu( screen,screen_center_x-100,screen_center_y + 25,200,200,predraw=None )
-    rpm.add_item( "Load Characters", True )
-    rpm.add_item( "Random Party", False )
+
+def choose_characters(screen):
+    rpm = rpgmenu.Menu(screen, screen_center_x - 100, screen_center_y + 25, 200, 200, predraw=None)
+    rpm.add_item("Load Characters", True)
+    rpm.add_item("Random Party", False)
     if rpm.query():
-        return charloader.load_characters( list(), screen )
+        return charloader.load_characters(list(), screen)
     else:
         return campaign.random_party()
 
-def start_campaign( init, screen ):
-    pygwrap.please_stand_by( screen, "Building world..." )
-    nart = narrator.Narrative( campaign.Campaign(), init )
+
+def start_campaign(init, screen):
+    pygwrap.please_stand_by(screen, "Building world...")
+    nart = narrator.Narrative(campaign.Campaign(), init)
     if nart.story:
         nart.build()
         camp = nart.camp
-        pcs = choose_characters( screen )
+        pcs = choose_characters(screen)
         if pcs:
-            camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name" )
-            camp.add_party( pcs )
+            camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name")
+            camp.add_party(pcs)
             camp.place_party()
-            camp.play( screen )
+            camp.play(screen)
 
-def default_start_campaign( screen ):
-    start_campaign( narrator.plots.PlotState(rank=1), screen )
 
-def bardic_start_campaign( screen ):
+def default_start_campaign(screen):
+    start_campaign(narrator.plots.PlotState(rank=1), screen)
+
+
+def bardic_start_campaign(screen):
     init = narrator.plots.PlotState(rank=1)
-    pygwrap.please_stand_by( screen, "Building world..." )
-    nart = narrator.Narrative( campaign.Campaign(), init, adv_type="STUB_BARDIC", end_rank=5 )
+    pygwrap.please_stand_by(screen, "Building world...")
+    nart = narrator.Narrative(campaign.Campaign(), init, adv_type="STUB_BARDIC", end_rank=5)
     if nart.story:
         nart.build()
         camp = nart.camp
-        pcs = choose_characters( screen )
+        pcs = choose_characters(screen)
         if pcs:
-            camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name" )
-            camp.add_party( pcs )
+            camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name")
+            camp.add_party(pcs)
             camp.place_party()
-            camp.play( screen )
+            camp.play(screen)
 
-def endless_start_campaign( screen ):
+
+def endless_start_campaign(screen):
     init = narrator.plots.PlotState(rank=1)
-    pygwrap.please_stand_by( screen, "Building world..." )
-    nart = narrator.Narrative( campaign.Campaign(xp_scale=0.25), init, adv_type="STUB_ENDLESS" )
+    pygwrap.please_stand_by(screen, "Building world...")
+    nart = narrator.Narrative(campaign.Campaign(xp_scale=0.25), init, adv_type="STUB_ENDLESS")
     if nart.story:
         nart.build()
         camp = nart.camp
-        pcs = choose_characters( screen )
+        pcs = choose_characters(screen)
         if pcs:
-            camp.add_party( pcs )
+            camp.add_party(pcs)
             camp.place_party()
-        camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name" )
-        camp.play( screen )
+        camp.name = pygwrap.input_string(screen, redrawer=PosterRedraw(screen), prompt="Enter campaign name")
+        camp.play(screen)
 
 
-def load_campaign( screen ):
-    rpm = rpgmenu.Menu( screen,screen.get_width()//2-250,screen.get_height()//2-50,500,100,predraw=PosterRedraw(screen) )
-    rpm.add_files( util.user_dir("rpg_*.sav") )
+def load_campaign(screen):
+    rpm = rpgmenu.Menu(screen, screen.get_width() // 2 - 250, screen.get_height() // 2 - 50, 500, 100,
+                       predraw=PosterRedraw(screen))
+    rpm.add_files(util.user_dir("rpg_*.sav"))
     rpm.sort()
     rpm.add_alpha_keys()
-    rpm.add_item( "Cancel Load Campaign", None )
+    rpm.add_item("Cancel Load Campaign", None)
     cmd = rpm.query()
     if cmd:
-        pygwrap.please_stand_by( screen, "Loading..." )
-        f = open( cmd, "rb" )
-        camp = cPickle.load( f )
+        pygwrap.please_stand_by(screen, "Loading...")
+        f = open(cmd, "rb")
+        camp = cPickle.load(f)
         f.close()
         if camp:
-            camp.play( screen )
+            camp.play(screen)
+
 
 def Delete_saved_games(screen):
-    rpm = rpgmenu.Menu( screen,screen.get_width()//2-250,screen.get_height()//2-50,500,100,predraw=PosterRedraw(screen) )
+    rpm = rpgmenu.Menu(screen, screen.get_width() // 2 - 250, screen.get_height() // 2 - 50, 500, 100,
+                       predraw=PosterRedraw(screen))
     rpm.add_files(util.user_dir("rpg_*.sav"))
     rpm.sort()
     rpm.add_alpha_keys()
@@ -147,51 +157,62 @@ def Delete_saved_games(screen):
         os.remove(cmd)
 
 
-def test_campaign_generator( screen ):
+def test_campaign_generator(screen):
     camp = campaign.Campaign()
-    for t in range( 100 ):
-        nart = narrator.Narrative( camp, narrator.plots.PlotState(rank=t%5+1), adv_type="SHORTIE",start_rank=t%5+1, end_rank=5 )
-        #nart.build()
+    for t in range(100):
+        nart = narrator.Narrative(camp, narrator.plots.PlotState(rank=t % 5 + 1), adv_type="SHORTIE",
+                                  start_rank=t % 5 + 1, end_rank=5)
+        # nart.build()
         print t
 
     for p in narrator.UNSORTED_PLOT_LIST:
         if p._used > 0:
-            print "{} [{}]".format( p, p._used )
+            print "{} [{}]".format(p, p._used)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption("Dungeon Monkey Eternal","DMEternal")
+    pygame.display.set_caption("Dungeon Monkey Eternal", "DMEternal")
     pygame.display.set_icon(pygame.image.load(util.image_dir("sys_icon.png")))
     # Set the screen size.
-    if util.config.getboolean( "DEFAULT", "fullscreen" ):
-        screen = pygame.display.set_mode( (0,0), pygame.FULLSCREEN )
-    else:
-        screen = pygame.display.set_mode( (800,600) )
+    # will keep asking the user to input a valid option for the resolution until they pick a valid resolution
+    res = None
+    while res != "1" and res != "2" and res != "3" and res != "4" and res != "5":
+        res = raw_input("What is your desired resolution: \n1: Full Screen \n2: 1920 x 1080 \n3: 1600 x 900 \n4: 1280 x 720 \n5: 800 x 600 \n")
+        if res == "1":
+            screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        elif res == "2":
+            screen = pygame.display.set_mode((1920, 1080))
+        elif res == "3":
+            screen = pygame.display.set_mode((1600, 900))
+        elif res == "4":
+            screen = pygame.display.set_mode((1280, 720))
+        elif res == "5":
+            screen = pygame.display.set_mode((800, 600))
+        else:
+            print("INVALID OPTION")
     pygwrap.init()
     rpgmenu.init()
 
     screen_center_x = screen.get_width() // 2
     screen_center_y = screen.get_height() // 2
 
-    rpm = rpgmenu.Menu( screen,screen_center_x-100,screen_center_y + 25,200,200,predraw=TitleScreenRedraw(screen) )
+    rpm = rpgmenu.Menu(screen, screen_center_x - 100, screen_center_y + 25, 200, 200, predraw=TitleScreenRedraw(screen))
 
-    rpm.add_item( "Create Character", chargen.make_and_save_character )
-    rpm.add_item( "Load Campaign", load_campaign )
+    rpm.add_item("Create Character", chargen.make_and_save_character)
+    rpm.add_item("Load Campaign", load_campaign)
     rpm.add_item("Delete Saved Games", Delete_saved_games)
-    rpm.add_item( "Start Endless Campaign", endless_start_campaign )
-    #rpm.add_item( "Start Bardic Campaign", bardic_start_campaign )
-    #rpm.add_item( "Start Gen1 Campaign", default_start_campaign )
-    rpm.add_item( "Browse Characters", campaign.browse_pcs )
-    #rpm.add_item( "Test Campaign Generator", test_campaign_generator )
-    rpm.add_item( "Quit Game", None )
+    rpm.add_item("Start Endless Campaign", endless_start_campaign)
+    # rpm.add_item( "Start Bardic Campaign", bardic_start_campaign )
+    # rpm.add_item( "Start Gen1 Campaign", default_start_campaign )
+    rpm.add_item("Browse Characters", campaign.browse_pcs)
+    # rpm.add_item( "Test Campaign Generator", test_campaign_generator )
+    rpm.add_item("Quit Game", None)
 
     cmd = True
     while cmd:
         cmd = rpm.query()
         if cmd:
-            cmd( screen )
+            cmd(screen)
         if pygwrap.GOT_QUIT:
             break
-
-
-
