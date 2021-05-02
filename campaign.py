@@ -130,7 +130,7 @@ class Campaign( object ):
     def save( self, screen=None ):
         if screen:
             pygwrap.please_stand_by( screen, "Saving..." )
-        f = open( util.user_dir( self.name + ".sav" ) , "wb" )
+        f = open( util.user_dir(self.name + ".sav" ) , "wb")
         cPickle.dump( self , f, -1 )
         f.close()
 
