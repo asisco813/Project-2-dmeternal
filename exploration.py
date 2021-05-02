@@ -942,6 +942,12 @@ class Explorer( object ):
                 if self.scene.map[x][y].wall == maps.BASIC_WALL:
                     self.scene.map[x][y].wall = None
 
+     # explain end-of-combat first aid function to user
+    def end_combat_dialog(self):
+        self.alert("The party tends to their wounds.")
+        self.alert("Negative status effects removed, all fainted party members recovered.")
+        self.alert("Each party member is healed of their most recent wound.")              
+                
     def give_gold_and_xp( self, gold, xp, looting_ok=False ):
         if xp or gold:
             if xp and gold:
@@ -964,7 +970,7 @@ class Explorer( object ):
 
             # Stock the gold.
             self.camp.gold += gold
-
+        self.end_combat_dialog()
 
     def go( self ):
         self.no_quit = True
@@ -1064,6 +1070,35 @@ class Explorer( object ):
                     elif gdi.unicode == u"!":
                         self.flatten_world()
 
+                    elif gdi.key == pygame.K_LEFT:
+                        # newPos gets the new position the player should be at when the chosen key is pressed
+                        newPos = (self.camp.first_living_pc().pos[0] - 1, self.camp.first_living_pc().pos[1])
+                        if ( newPos != self.camp.first_living_pc().pos ) and self.scene.on_the_map( *newPos):
+                            self.order = MoveTo( self, newPos )
+                            self.view.overlays.clear()
+                        else:
+                            self.pick_up( newPos )
+                    elif gdi.key == pygame.K_UP:
+                        newPos = (self.camp.first_living_pc().pos[0], self.camp.first_living_pc().pos[1] - 1)
+                        if (newPos != self.camp.first_living_pc().pos) and self.scene.on_the_map(*newPos):
+                            self.order = MoveTo(self, newPos)
+                            self.view.overlays.clear()
+                        else:
+                            self.pick_up(newPos)
+                    elif gdi.key == pygame.K_DOWN:
+                        newPos = (self.camp.first_living_pc().pos[0], self.camp.first_living_pc().pos[1] + 1)
+                        if (newPos != self.camp.first_living_pc().pos) and self.scene.on_the_map(*newPos):
+                            self.order = MoveTo(self, newPos)
+                            self.view.overlays.clear()
+                        else:
+                            self.pick_up(newPos)
+                    elif gdi.key == pygame.K_RIGHT:
+                        newPos = (self.camp.first_living_pc().pos[0] + 1, self.camp.first_living_pc().pos[1])
+                        if (newPos != self.camp.first_living_pc().pos) and self.scene.on_the_map(*newPos):
+                            self.order = MoveTo(self, newPos)
+                            self.view.overlays.clear()
+                        else:
+                            self.pick_up(newPos)
                 elif gdi.type == pygame.QUIT:
                     self.camp.save(self.screen)
                     self.no_quit = False
@@ -1073,8 +1108,8 @@ class Explorer( object ):
                         if ( self.view.mouse_tile != self.camp.first_living_pc().pos ) and self.scene.on_the_map( *self.view.mouse_tile ):
                             self.order = MoveTo( self, self.view.mouse_tile )
                             self.view.overlays.clear()
+                            print(self.camp.first_living_pc().pos)
                         else:
                             self.pick_up( self.view.mouse_tile )
                     else:
                         self.pop_explo_menu()
-
