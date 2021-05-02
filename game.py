@@ -123,7 +123,7 @@ def endless_start_campaign( screen ):
 
 def load_campaign( screen ):
     rpm = rpgmenu.Menu( screen,screen.get_width()//2-250,screen.get_height()//2-50,500,100,predraw=PosterRedraw(screen) )
-    rpm.add_files( util.user_dir("rpg_*.sav") )
+    rpm.add_files( util.user_dir("*.sav") )
     rpm.sort()
     rpm.add_alpha_keys()
     rpm.add_item( "Cancel Load Campaign", None )
