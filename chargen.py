@@ -65,6 +65,7 @@ class ChooseSpeciesRedrawer( object ):
     def __init__( self , menu=None, predraw=None ):
         self.menu = menu
         self.predraw = predraw
+
     def display_species_info( self, screen, it, myrect ):
         y = myrect.y
         myimg = pygwrap.render_text( pygwrap.BIGFONT, it.name, myrect.width, justify=0, color=(240,240,240) )

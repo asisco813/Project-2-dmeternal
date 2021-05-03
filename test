@@ -1,0 +1,32 @@
+Issue #1 (Individual Issue) - Michael Drolet
+    No picture shown when choosing a race
+
+    How to test?
+    Run game.py and navigate to Create Character. Select a gender, and this will bring the user to
+    the desired page to test.
+    Each race has a default avatar that is shown below their respective descriptions. Clicking down on
+    the keypad allows the user to see each avatar in its default state. This gives the user an idea of
+    what each race looks like.
+
+---------------------------------------------------------------------------------------------------------
+Issue #5 (Individual Issue) - Amari Sisco
+    Resolution support - updated so user can choose resolution size from a list
+
+    How to test?
+    Run game.py
+    In the terminal, there should be a prompt asking user to select a resolution size from a list
+    of possible sizes. Typing a number from this list brings up the corresponding resolution size.
+    Typing a number outside of this list will alert the user with INVALID OPTION, and prompt the user
+    to re-enter a number from the list.
+
+---------------------------------------------------------------------------------------------------------
+Issue #25 (Group Issue) - Amari Sisco and Michael Drolet
+	Add option to move using keys
+
+	How to test?
+	Run game.py and navigate to an existing campaign. This should show the last save state of the characters
+	To move normally, the user would click on a location in the grid and the characters would move onto said
+	location. To move with KEYS, use the keypad located on the lower-right of a standard keyboard. Each
+	button press will direct the user in the direction based on the keys.
+
+---------------------------------------------------------------------------------------------------------
