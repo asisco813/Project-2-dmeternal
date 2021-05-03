@@ -170,12 +170,7 @@ def test_campaign_generator(screen):
             print "{} [{}]".format(p, p._used)
 
 
-if __name__ == '__main__':
-    pygame.init()
-    pygame.display.set_caption("Dungeon Monkey Eternal", "DMEternal")
-    pygame.display.set_icon(pygame.image.load(util.image_dir("sys_icon.png")))
-    # Set the screen size.
-    # will keep asking the user to input a valid option for the resolution until they pick a valid resolution
+def resolutionSet():
     res = None
     while res != "1" and res != "2" and res != "3" and res != "4" and res != "5":
         res = raw_input("What is your desired resolution: \n1: Full Screen \n2: 1920 x 1080 \n3: 1600 x 900 \n4: 1280 x 720 \n5: 800 x 600 \n")
@@ -191,6 +186,16 @@ if __name__ == '__main__':
             screen = pygame.display.set_mode((800, 600))
         else:
             print("INVALID OPTION")
+    return screen
+
+
+if __name__ == '__main__':
+    pygame.init()
+    pygame.display.set_caption("Dungeon Monkey Eternal", "DMEternal")
+    pygame.display.set_icon(pygame.image.load(util.image_dir("sys_icon.png")))
+    # Set the screen size.
+    # will keep asking the user to input a valid option for the resolution until they pick a valid resolution
+    screen = resolutionSet()
     pygwrap.init()
     rpgmenu.init()
 
