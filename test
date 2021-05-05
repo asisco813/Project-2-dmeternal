@@ -30,3 +30,39 @@ Issue #25 (Group Issue) - Amari Sisco and Michael Drolet
 	button press will direct the user in the direction based on the keys.
 
 ---------------------------------------------------------------------------------------------------------
+Issue #10 (Individual Issue) Cassis Lafleur
+    Added option to delete saved games
+
+Issue #18 (Individual Issue) Cassis Lafleur
+    removed "rpg_" for start of every save game
+
+    How to test?
+1. Launch the game
+2. pick a resolution
+3. Start endless Campaign
+4. Chose Random Party
+5. Name the campaign
+6. Right click to bring up menu
+7. Select Quit Game
+8. Select Delete Saved Games options
+9. The Campaign you just named will be in the list
+This also test the fact the campaign does Not start with "rpg_"  (Issue 18)
+10.Click on it to delete it this will take you back to the main menu
+11. You can double check to make sure the campaign was deleted by selecting Delete Saves Games to see that its gone
+
+---------------------------------------------------------------------------------------------------------
+Issue #17 (Individual Issue) Cassis Lafleur
+    Renaming saved games and still have the game consider them valid
+
+How to test
+1. Launch the game
+2. pick a resolution
+3. Start endless Campaign
+4. Chose Random Party
+5. Name the campaign
+6. Right click to bring up menu
+7. Select Quit Game
+8. Navigate to C:\Users\{User Name}\dmeternal or simulare if not on Windows
+9. This folder has the saved game file they end in .sav
+10.Rename your desired save file to what ever you want as long as you don't change the file extension
+11.go back to the game no your newly renamed save will show up in the "Load Campaign" and the "Delete Saved Games options"

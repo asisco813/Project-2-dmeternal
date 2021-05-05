@@ -153,6 +153,7 @@ def Delete_saved_games(screen):
     rpm.add_alpha_keys()
     rpm.add_item("Cancel Delete Saved Games", None)
     cmd = rpm.query()
+    print cmd
     if cmd:
         os.remove(cmd)
 
