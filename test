@@ -1,27 +1,37 @@
 Issue #1 (Individual Issue) - Michael Drolet
     No picture shown when choosing a race
+	
+	How to test?
+	Run game.py and navigate to Create Character. Select a gender, and this will bring the user to
+	the desired page to test. Each race has a default avatar that is shown below their respective 
+	descriptions. Clicking down on the keypad allows the user to see each avatar in its default 
+	state. This gives the user an idea of what each race looks like.
+	
+---------------------------------------------------------------------------------------------------------
+Issue #4 (Individual issue) - Rhys P.
+     Make end of fight stat changes more readable
+	
+	Run game.py and start a new campaign or load a saved game. Navigate through the world until an 
+	enemy is encountered and combat is initiated. Combat must be successfully won. Messages reading 
+	“The party tends to their wounds”, "Negative status effects removed, all fainted party members 
+	recovered", and "Each party member is healed of their most recent wound" will be displayed. If 
+	all party members are killed and combat is lost, the messages will not appear.
 
-    How to test?
-    Run game.py and navigate to Create Character. Select a gender, and this will bring the user to
-    the desired page to test.
-    Each race has a default avatar that is shown below their respective descriptions. Clicking down on
-    the keypad allows the user to see each avatar in its default state. This gives the user an idea of
-    what each race looks like.
 
 ---------------------------------------------------------------------------------------------------------
 Issue #5 (Individual Issue) - Amari Sisco
     Resolution support - updated so user can choose resolution size from a list
-
-    How to test?
-    Run game.py
-    In the terminal, there should be a prompt asking user to select a resolution size from a list
-    of possible sizes. Typing a number from this list brings up the corresponding resolution size.
-    Typing a number outside of this list will alert the user with INVALID OPTION, and prompt the user
-    to re-enter a number from the list.
+	
+	How to test?
+	Run game.py
+	In the terminal, there should be a prompt asking user to select a resolution size from a list
+	of possible sizes. Typing a number from this list brings up the corresponding resolution size.
+	Typing a number outside of this list will alert the user with INVALID OPTION, and prompt the user
+	to re-enter a number from the list.
 
 ---------------------------------------------------------------------------------------------------------
 Issue #25 (Group Issue) - Amari Sisco and Michael Drolet
-	Add option to move using keys
+     Add option to move using keys
 
 	How to test?
 	Run game.py and navigate to an existing campaign. This should show the last save state of the characters
@@ -36,33 +46,33 @@ Issue #10 (Individual Issue) Cassis Lafleur
 Issue #18 (Individual Issue) Cassis Lafleur
     removed "rpg_" for start of every save game
 
-    How to test?
-1. Launch the game
-2. pick a resolution
-3. Start endless Campaign
-4. Chose Random Party
-5. Name the campaign
-6. Right click to bring up menu
-7. Select Quit Game
-8. Select Delete Saved Games options
-9. The Campaign you just named will be in the list
-This also test the fact the campaign does Not start with "rpg_"  (Issue 18)
-10.Click on it to delete it this will take you back to the main menu
-11. You can double check to make sure the campaign was deleted by selecting Delete Saves Games to see that its gone
+	    How to test?
+	1. Launch the game
+	2. pick a resolution
+	3. Start endless Campaign
+	4. Chose Random Party
+	5. Name the campaign
+	6. Right click to bring up menu
+	7. Select Quit Game
+	8. Select Delete Saved Games options
+	9. The Campaign you just named will be in the list
+	This also test the fact the campaign does Not start with "rpg_"  (Issue 18)
+	10.Click on it to delete it this will take you back to the main menu
+	11. You can double check to make sure the campaign was deleted by selecting Delete Saves Games to see that its gone
 
 ---------------------------------------------------------------------------------------------------------
 Issue #17 (Individual Issue) Cassis Lafleur
     Renaming saved games and still have the game consider them valid
 
-How to test
-1. Launch the game
-2. pick a resolution
-3. Start endless Campaign
-4. Chose Random Party
-5. Name the campaign
-6. Right click to bring up menu
-7. Select Quit Game
-8. Navigate to C:\Users\{User Name}\dmeternal or simulare if not on Windows
-9. This folder has the saved game file they end in .sav
-10.Rename your desired save file to what ever you want as long as you don't change the file extension
-11.go back to the game no your newly renamed save will show up in the "Load Campaign" and the "Delete Saved Games options"
+	How to test
+	1. Launch the game
+	2. pick a resolution
+	3. Start endless Campaign
+	4. Chose Random Party
+	5. Name the campaign
+	6. Right click to bring up menu
+	7. Select Quit Game
+	8. Navigate to C:\Users\{User Name}\dmeternal or simulare if not on Windows
+	9. This folder has the saved game file they end in .sav
+	10.Rename your desired save file to what ever you want as long as you don't change the file extension
+	11.go back to the game no your newly renamed save will show up in the "Load Campaign" and the "Delete Saved Games options"
